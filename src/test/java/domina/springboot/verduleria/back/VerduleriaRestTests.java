@@ -26,7 +26,9 @@ public class VerduleriaRestTests {
 	
 	@Test
 	void consultarVerduras() {
-		ResponseEntity<String> response = restTemplate.getForEntity("/verduras", String.class);
+		ResponseEntity<String> response = restTemplate
+                .withBasicAuth("carmen", "lechuguita123")
+                .getForEntity("/verduras", String.class);
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		
         DocumentContext documentContext = JsonPath.parse(response.getBody());
@@ -39,7 +41,9 @@ public class VerduleriaRestTests {
 	
 	@Test
 	void consultarTomateTest() {
-		ResponseEntity<String> response = restTemplate.getForEntity("/verduras/2001", String.class);
+		ResponseEntity<String> response = restTemplate
+                .withBasicAuth("carmen", "lechuguita123")
+                .getForEntity("/verduras/2001", String.class);
 
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
@@ -62,7 +66,9 @@ public class VerduleriaRestTests {
 	@DirtiesContext
 	void crearRemolachaTest() {
 		Verdura remolacha = new Verdura(0, "Remolacha", 4.52, false);
-		ResponseEntity<Verdura> createResponse = restTemplate.postForEntity("/verduras", remolacha, Verdura.class);
+		ResponseEntity<Verdura> createResponse = restTemplate
+                .withBasicAuth("carmen", "lechuguita123")
+                .postForEntity("/verduras", remolacha, Verdura.class);
 		// comprobación status respuesta
 		assertThat(createResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 
@@ -79,7 +85,9 @@ public class VerduleriaRestTests {
 		assertThat(remolachaCreada.isTroceable()).isFalse();
 
 		// comprobación get by id del objeto creado
-		ResponseEntity<String> getResponse = restTemplate.getForEntity(remolachaLocation, String.class);
+		ResponseEntity<String> getResponse = restTemplate
+                .withBasicAuth("carmen", "lechuguita123")
+                .getForEntity(remolachaLocation, String.class);
 		assertThat(getResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
 
 		DocumentContext documentContext = JsonPath.parse(getResponse.getBody());

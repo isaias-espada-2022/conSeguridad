@@ -57,6 +57,12 @@
 			<scope>runtime</scope>
 		</dependency>
 <!-- Fin de H2 a MySQL -->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
 	</dependencies>
 
 	<build>
